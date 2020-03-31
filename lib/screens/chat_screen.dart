@@ -15,7 +15,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   _buildMessage(Message message, bool isMe) {
 
-    return Container(
+    final Container msg = Container(
+      width: MediaQuery.of(context).size.width * 0.75,
       margin: isMe ? EdgeInsets.only(
         top: 8.0,
         bottom: 8.0,
@@ -23,7 +24,6 @@ class _ChatScreenState extends State<ChatScreen> {
       ) : EdgeInsets.only(
         top: 8.0,
         bottom: 8.0,
-        right: 80.0,
       ),
 
       padding: EdgeInsets.symmetric(
@@ -32,17 +32,17 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
 
       decoration: BoxDecoration(
-          color: isMe ? Theme.of(context).accentColor : Color(0xFFFFEFEE),
+        color: isMe ? Theme.of(context).accentColor : Color(0xFFFFEFEE),
 
-          borderRadius: isMe ? BorderRadius.only(
-          topLeft: Radius.circular(15.0),
-          bottomLeft: Radius.circular(15.0)
+        borderRadius: isMe ? BorderRadius.only(
+            topLeft: Radius.circular(15.0),
+            bottomLeft: Radius.circular(15.0)
         ): BorderRadius.only(
-              topRight: Radius.circular(15.0),
-              bottomRight: Radius.circular(15.0)
-          ),
+            topRight: Radius.circular(15.0),
+            bottomRight: Radius.circular(15.0)
+        ),
       ),
-      
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -65,6 +65,21 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
+    );
+
+    if(isMe) {
+      return msg;
+    }
+    return Row(
+      children: <Widget>[
+        msg,
+        IconButton(
+          icon: message.isLiked ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+          iconSize: 30.0,
+          color: message.isLiked ? Theme.of(context).primaryColor : Colors.blueGrey,
+          onPressed: () {},
+        ),
+      ],
     );
   }
 
