@@ -12,6 +12,43 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+
+  _buildMessage(Message message, bool isMe) {
+
+    return Container(
+      margin: isMe ? EdgeInsets.only(
+        top: 8.0,
+        bottom: 8.0,
+        left: 80.0,
+      ) : EdgeInsets.only(
+        top: 8.0,
+        bottom: 8.0,
+        right: 80.0,
+      ),
+
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.0,
+        vertical: 15.0,
+      ),
+
+      decoration: BoxDecoration(
+          color: isMe ? Theme.of(context).accentColor : Color(0xFFFFEFEE),
+
+          borderRadius: isMe ? BorderRadius.only(
+          topLeft: Radius.circular(15.0),
+          bottomLeft: Radius.circular(15.0)
+        ): BorderRadius.only(
+              topRight: Radius.circular(15.0),
+              bottomRight: Radius.circular(15.0)
+          ),
+      ),
+      
+      child: Text(
+        message.text,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +90,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
                       final Message message = messages[index];
-                      return Text(
-                          message.text
-                      );
+                      final bool isMe = message.sender.id == currentUser.id;
+                      return _buildMessage(message, isMe);
                     },
                 ),
               ),
