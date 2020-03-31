@@ -43,8 +43,27 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
       ),
       
-      child: Text(
-        message.text,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            message.time,
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SizedBox(height: 8.0),
+          Text(
+            message.text,
+            style: TextStyle(
+              color: Colors.blueGrey,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -86,6 +105,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
               child: ClipRect(
                 child: ListView.builder(
+                  reverse: true,
                   padding: EdgeInsets.only(top: 15.0),
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
